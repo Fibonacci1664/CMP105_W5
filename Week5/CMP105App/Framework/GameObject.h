@@ -38,6 +38,11 @@ public:
 	// Set the input component
 	void setInput(Input* in) { input = in; };
 
+	inline
+		// Set the window component.
+		// WHY SHOULD THIS BE DONE IN ENEMY CLASS AND NOT HERE?
+		void setWindow(sf::RenderWindow* hwnd) { window = hwnd; }
+
 protected:
 	// Sprite properties
 	sf::Vector2f velocity;
@@ -49,4 +54,8 @@ protected:
 
 	// input component
 	Input* input;
+
+	// Window component.
+	// WHY SHOULD THIS BE DONE IN ENEMY CLASS AND NOT HERE?
+	sf::RenderWindow* window;
 };

@@ -3,6 +3,8 @@
 #include <SFML/Graphics.hpp>
 #include "Framework/Input.h"
 #include "Framework/GameObject.h"
+#include "Zombie.h"
+#include "Mario.h"
 #include <string>
 #include <iostream>
 
@@ -20,8 +22,16 @@ private:
 	// Default functions for rendering to the screen.
 	void beginDraw();
 	void endDraw();
+	void initZombie();
+	void initMario();
+	void initTextures();
 
 	// Default variables for level class.
 	sf::RenderWindow* window;
 	Input* input;
+
+	sf::Texture zombTexture;
+	sf::Texture marioTexture;
+	Zombie zombie_1;
+	Mario mario_1;
 };
