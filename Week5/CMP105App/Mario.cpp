@@ -6,8 +6,12 @@ Mario::Mario()
 {
 	movingLeft = false;
 	movingRight = false;
+	ducking = false;
 	setVelocity(sf::Vector2f(150, 150));
 	addFrames();
+	setTextureRect(run.getCurrentFrame());
+	duck.setPlaying(false);
+
 }
 
 Mario::~Mario()
@@ -49,10 +53,9 @@ void Mario::handleInput(float dt)
 {
 	run.setPlaying(false);
 	swim.setPlaying(false);
-	duck.setPlaying(false);
 
 	// Move right.
-	if (input->isKeyDown(sf::Keyboard::L))
+	if (input->isKeyDown(sf::Keyboard::L) && !ducking)
 	{
 		movingRight = true;
 		movingLeft = false;
@@ -65,7 +68,7 @@ void Mario::handleInput(float dt)
 	}
 
 	// Move left.
-	if (input->isKeyDown(sf::Keyboard::J))
+	if (input->isKeyDown(sf::Keyboard::J) && !ducking)
 	{
 		movingLeft = true;
 		movingRight = false;
@@ -78,7 +81,7 @@ void Mario::handleInput(float dt)
 	}
 
 	// Swim right.
-	if (input->isKeyDown(sf::Keyboard::P) && (input->isKeyDown(sf::Keyboard::L)))
+	if (input->isKeyDown(sf::Keyboard::P) && (input->isKeyDown(sf::Keyboard::L) && !ducking))
 	{
 		run.setPlaying(false);
 		swim.setPlaying(true);
@@ -90,7 +93,7 @@ void Mario::handleInput(float dt)
 	}
 
 	// Swim left.
-	if (input->isKeyDown(sf::Keyboard::P) && (input->isKeyDown(sf::Keyboard::J)))
+	if (input->isKeyDown(sf::Keyboard::P) && (input->isKeyDown(sf::Keyboard::J) && !ducking))
 	{
 		run.setPlaying(false);
 		swim.setPlaying(true);
@@ -104,6 +107,7 @@ void Mario::handleInput(float dt)
 	// Duck.
 	if (input->isKeyDown(sf::Keyboard::K))
 	{
+		ducking = true;
 		run.setPlaying(false);
 		duck.setPlaying(true);
 		
@@ -120,6 +124,16 @@ void Mario::handleInput(float dt)
 		setTextureRect(duck.getCurrentFrame());
 
 		setPosition(sf::Vector2f(getPosition().x, getPosition().y));
+	}
+	else if(!input->isKeyDown(sf::Keyboard::K))
+	{
+		ducking = false;
+
+		if (duck.getPlaying())
+		{
+			duck.setPlaying(false);
+			setTextureRect(run.getCurrentFrame());
+		}
 	}
 }
 

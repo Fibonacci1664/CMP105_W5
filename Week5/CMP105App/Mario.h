@@ -27,6 +27,7 @@ private:
 
 	bool movingLeft;
 	bool movingRight;
+	bool ducking;
 
 	void addFrames();
 };
